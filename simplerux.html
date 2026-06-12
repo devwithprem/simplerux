@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SPK Studio — Industrial UX Consultancy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300;1,14..32,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#fafafa;--bg-alt:#f2f2f2;--bg-card:#eaeaea;
+  --fg:#111;--fg-muted:#555;--fg-faint:#999;
+  --border:#ddd;
+  --inv-bg:#111;--inv-fg:#f5f5f5;
+  --inv-muted:rgba(245,245,245,.52);--inv-faint:rgba(245,245,245,.18);
+  --tag-bg:#e6e6e6;
+  --tr:background .3s,color .3s,border-color .3s;
+}
+[data-theme="dark"]{
+  --bg:#0c0c0c;--bg-alt:#161616;--bg-card:#202020;
+  --fg:#f0f0f0;--fg-muted:#aaa;--fg-faint:#505050;
+  --border:#2a2a2a;
+  --inv-bg:#1e1e1e;--inv-fg:#f0f0f0;
+  --inv-muted:rgba(240,240,240,.5);--inv-faint:rgba(240,240,240,.15);
+  --tag-bg:#252525;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  transition:var(--tr);
+}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;background:var(--bg);border-bottom:1px solid var(--border);
+  transition:var(--tr);
+}
+.nav-logo{font-size:15px;font-weight:800;color:var(--fg);letter-spacing:-.02em}
+.nav-logo span{font-weight:300;color:var(--fg-muted)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:13px;color:var(--fg-muted);transition:color .2s}
+.nav-link:hover{color:var(--fg)}
+.nav-cta{
+  font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 18px;border:1px solid var(--fg);color:var(--fg);
+  background:transparent;transition:background .2s,color .2s;
+}
+.nav-cta:hover{background:var(--fg);color:var(--bg)}
+.theme-btn{
+  background:none;border:1px solid var(--border);
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--fg-muted);transition:border-color .2s,color .2s;
+}
+.theme-btn:hover{border-color:var(--fg);color:var(--fg)}
+.theme-btn svg{width:14px;height:14px;pointer-events:none}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 52px 80px;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.hero-wm{
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-size:clamp(140px,20vw,290px);font-weight:900;
+  color:var(--fg);opacity:.025;pointer-events:none;user-select:none;
+  white-space:nowrap;line-height:1;letter-spacing:-.04em;transition:color .3s;
+}
+.hero-inner{max-width:1140px;margin:0 auto;width:100%}
+.hero-grid{display:grid;grid-template-columns:1fr 400px;gap:72px;align-items:center}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--fg-faint);margin-bottom:24px;
+}
+.hero-h1{
+  font-size:clamp(44px,6.2vw,90px);font-weight:900;
+  line-height:.95;letter-spacing:-.04em;color:var(--fg);margin-bottom:28px;
+}
+.hero-h1 span{color:var(--fg-muted);font-weight:300}
+.hero-sub{
+  font-size:16px;font-weight:300;color:var(--fg-muted);
+  line-height:1.8;max-width:460px;margin-bottom:44px;
+}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:60px}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--fg);color:var(--bg);
+  padding:13px 26px;font-size:13px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;
+  border:1px solid var(--fg);transition:opacity .2s;
+}
+.btn-primary:hover{opacity:.75}
+.btn-ghost{
+  font-size:13px;color:var(--fg-muted);font-weight:400;
+  background:none;border:none;letter-spacing:.01em;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:color .2s;
+}
+.btn-ghost:hover{color:var(--fg)}
+.hero-proof{border:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr)}
+.hp{padding:20px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.hp:last-child{border-right:none}
+.hp-num{font-size:28px;font-weight:800;color:var(--fg);line-height:1;letter-spacing:-.03em}
+.hp-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-faint);letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.hp-src{font-size:11px;color:var(--fg-faint);font-weight:300;margin-top:2px}
+
+/* HERO CARD */
+.hero-card{background:var(--inv-bg);padding:40px 36px;display:flex;flex-direction:column}
+[data-theme="dark"] .hero-card{background:var(--bg-card)}
+.hc-badge{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--inv-faint);margin-bottom:28px;
+}
+[data-theme="dark"] .hc-badge{color:var(--fg-faint)}
+.hc-h{font-size:22px;font-weight:700;color:var(--inv-fg);line-height:1.2;margin-bottom:10px;letter-spacing:-.02em}
+[data-theme="dark"] .hc-h{color:var(--fg)}
+.hc-h em{font-style:italic;font-weight:300}
+.hc-sub{font-size:13px;font-weight:300;color:var(--inv-muted);line-height:1.7;margin-bottom:24px}
+[data-theme="dark"] .hc-sub{color:var(--fg-muted)}
+.hc-rule{height:1px;background:var(--inv-faint);margin-bottom:22px}
+[data-theme="dark"] .hc-rule{background:var(--border)}
+.hc-item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--inv-faint)}
+[data-theme="dark"] .hc-item{border-bottom-color:var(--border)}
+.hc-item:last-child{border-bottom:none;margin-bottom:24px}
+.hc-dot{width:4px;height:4px;border-radius:50%;background:var(--inv-muted);flex-shrink:0;margin-top:8px}
+[data-theme="dark"] .hc-dot{background:var(--fg-faint)}
+.hc-text{font-size:13px;color:var(--inv-muted);font-weight:300;line-height:1.45}
+[data-theme="dark"] .hc-text{color:var(--fg-muted)}
+.hc-price-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:18px 20px;margin-bottom:18px}
+[data-theme="dark"] .hc-price-box{background:var(--bg-alt);border-color:var(--border)}
+.hc-free{font-size:28px;font-weight:800;color:var(--inv-fg);line-height:1;margin-bottom:6px;letter-spacing:-.03em}
+[data-theme="dark"] .hc-free{color:var(--fg)}
+.hc-free-cond{font-size:12px;font-weight:300;color:var(--inv-muted);line-height:1.55}
+[data-theme="dark"] .hc-free-cond{color:var(--fg-muted)}
+.hc-cta{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--inv-fg);color:var(--inv-bg);
+  padding:13px 24px;font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  border:none;width:100%;transition:opacity .2s;margin-bottom:10px;
+}
+[data-theme="dark"] .hc-cta{background:var(--fg);color:var(--bg)}
+.hc-cta:hover{opacity:.8}
+.hc-note{font-size:11px;text-align:center;color:var(--inv-muted);line-height:1.5;font-weight:300}
+[data-theme="dark"] .hc-note{color:var(--fg-faint)}
+
+/* MARQUEE */
+.marquee-band{overflow:hidden;padding:13px 0;background:var(--bg-alt);border-bottom:1px solid var(--border)}
+.marquee-inner{display:flex;width:max-content;animation:marquee 30s linear infinite}
+.marquee-band:hover .marquee-inner{animation-play-state:paused}
+.mi{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--fg-faint);
+  padding:0 44px;border-right:1px solid var(--border);white-space:nowrap;
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SHARED */
+.section{padding:108px 52px}
+.container{max-width:1140px;margin:0 auto}
+.sec-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fg-faint);
+  display:flex;align-items:center;gap:14px;margin-bottom:52px;
+}
+.sec-label::after{content:'';display:block;width:40px;height:1px;background:var(--border)}
+.sec-h{font-size:clamp(28px,3.6vw,50px);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--fg)}
+.sec-sub{font-size:15px;font-weight:300;color:var(--fg-muted);line-height:1.8}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end}
+
+/* MANIFESTO */
+.manifesto{background:var(--inv-bg);padding:108px 52px}
+[data-theme="dark"] .manifesto{background:var(--bg-alt)}
+.m-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--inv-faint);
+  display:flex;align-items:center;gap:14px;margin-bottom:52px;
+}
+[data-theme="dark"] .m-label{color:var(--fg-faint)}
+.m-label::after{content:'';display:block;width:40px;height:1px;background:var(--inv-faint)}
+[data-theme="dark"] .m-label::after{background:var(--border)}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.m-h{font-size:clamp(30px,4vw,56px);font-weight:800;line-height:1.0;letter-spacing:-.035em;color:var(--inv-fg)}
+[data-theme="dark"] .m-h{color:var(--fg)}
+.m-body{display:flex;flex-direction:column;gap:22px}
+.m-p{font-size:15px;font-weight:300;color:var(--inv-muted);line-height:1.85}
+[data-theme="dark"] .m-p{color:var(--fg-muted)}
+.m-p strong{font-weight:600;color:var(--inv-fg)}
+[data-theme="dark"] .m-p strong{color:var(--fg)}
+.m-pull{
+  border-left:2px solid rgba(255,255,255,.12);padding:4px 0 4px 24px;
+  font-size:18px;font-weight:300;font-style:italic;
+  color:var(--inv-fg);line-height:1.6;
+}
+[data-theme="dark"] .m-pull{border-left-color:var(--border);color:var(--fg)}
+
+/* ────────────────────────────────────────────
+   SECTION A: USABILITY ISSUES — horizontal scroll table
+   ──────────────────────────────────────────── */
+.issues{background:var(--bg-alt)}
+.issues-table{border:1px solid var(--border);margin-top:56px;overflow:hidden}
+.issues-head{
+  display:grid;grid-template-columns:44px 1fr 1fr 1fr;
+  background:var(--fg);
+}
+[data-theme="dark"] .issues-head{background:var(--bg-card)}
+.ih{
+  padding:14px 20px;font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--bg);border-right:1px solid rgba(255,255,255,.08);
+}
+[data-theme="dark"] .ih{color:var(--fg)}
+[data-theme="dark"] .ih{border-right-color:var(--border)}
+.ih:last-child{border-right:none}
+.issues-row{
+  display:grid;grid-template-columns:44px 1fr 1fr 1fr;
+  border-top:1px solid var(--border);
+  transition:background .15s;
+}
+.issues-row:hover{background:var(--bg-card)}
+.ir{padding:16px 20px;font-size:13px;color:var(--fg-muted);border-right:1px solid var(--border);line-height:1.45}
+.ir:last-child{border-right:none}
+.ir-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-faint);font-weight:400;padding:16px 0 16px 14px;display:flex;align-items:flex-start}
+.ir-label{font-weight:500;color:var(--fg)}
+.ir-impact{font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+.impact-high{color:#111}
+[data-theme="dark"] .impact-high{color:var(--fg)}
+.impact-med{color:var(--fg-muted)}
+.sev-badge{
+  display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;background:var(--tag-bg);color:var(--fg-faint);
+}
+.sev-crit{background:var(--fg);color:var(--bg)}
+[data-theme="dark"] .sev-crit{background:var(--fg);color:var(--bg)}
+.sev-high{background:var(--bg-card);color:var(--fg-muted)}
+.sev-med{background:transparent;border:1px solid var(--border);color:var(--fg-faint)}
+
+/* ────────────────────────────────────────────
+   SECTION B: VERTICALS — big visual cards
+   ──────────────────────────────────────────── */
+.verticals{background:var(--bg)}
+.vert-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);margin-top:56px;
+}
+.vert-card{
+  background:var(--bg);padding:32px 28px 36px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .2s;position:relative;overflow:hidden;
+}
+.vert-card:hover{background:var(--bg-alt)}
+.vert-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--fg);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.vert-card:hover::before{transform:scaleX(1)}
+.vc-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-faint);letter-spacing:.08em}
+.vc-icon{font-size:28px;margin-bottom:4px}
+.vc-title{font-size:15px;font-weight:700;color:var(--fg);line-height:1.2;letter-spacing:-.01em}
+.vc-desc{font-size:12px;color:var(--fg-faint);font-weight:300;line-height:1.6}
+.vert-card:nth-child(5),.vert-card:nth-child(6),
+.vert-card:nth-child(7),.vert-card:nth-child(8){border-top:1px solid var(--border)}
+
+/* EVIDENCE */
+.evidence{background:var(--bg-alt)}
+.ev-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.ev-card{background:var(--bg-alt);padding:40px 36px}
+.ev-stat{font-size:clamp(44px,5vw,68px);font-weight:800;letter-spacing:-.04em;color:var(--fg);line-height:1;margin-bottom:14px}
+.ev-card-h{font-size:15px;font-weight:600;color:var(--fg);margin-bottom:10px}
+.ev-card-b{font-size:13px;font-weight:300;color:var(--fg-muted);line-height:1.7}
+.ev-source{
+  display:inline-block;margin-top:16px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--fg-faint);
+  padding:3px 8px;border:1px solid var(--border);
+}
+
+/* OUTCOMES */
+.outcomes{background:var(--inv-bg);padding:108px 52px}
+[data-theme="dark"] .outcomes{background:var(--bg-alt)}
+.oc-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:64px}
+.oc-h{font-size:clamp(28px,3.6vw,50px);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--inv-fg)}
+[data-theme="dark"] .oc-h{color:var(--fg)}
+.oc-sub{font-size:15px;font-weight:300;color:var(--inv-muted);line-height:1.8}
+[data-theme="dark"] .oc-sub{color:var(--fg-muted)}
+.oc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.07)}
+[data-theme="dark"] .oc-grid{background:var(--border)}
+.oc{background:var(--inv-bg);padding:36px 28px}
+[data-theme="dark"] .oc{background:var(--bg-alt)}
+.oc-icon{font-size:22px;margin-bottom:14px}
+.oc-title{font-size:14px;font-weight:600;color:var(--inv-fg);margin-bottom:8px;line-height:1.3}
+[data-theme="dark"] .oc-title{color:var(--fg)}
+.oc-body{font-size:12px;font-weight:300;color:var(--inv-muted);line-height:1.65}
+[data-theme="dark"] .oc-body{color:var(--fg-muted)}
+
+/* COMPARE */
+.compare{background:var(--bg)}
+.cmp-table{border:1px solid var(--border);margin-top:56px;overflow:hidden}
+.cmp-head{display:grid;grid-template-columns:2fr 1fr 1fr;background:var(--fg)}
+[data-theme="dark"] .cmp-head{background:var(--bg-card)}
+.ch{padding:16px 28px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--bg)}
+[data-theme="dark"] .ch{color:var(--fg)}
+.ch:not(:first-child){border-left:1px solid rgba(255,255,255,.1)}
+[data-theme="dark"] .ch:not(:first-child){border-left-color:var(--border)}
+.cmp-row{display:grid;grid-template-columns:2fr 1fr 1fr;border-top:1px solid var(--border)}
+.cmp-row:hover{background:var(--bg-alt)}
+.cr{padding:16px 28px;font-size:13px;color:var(--fg-muted);border-right:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.cr:last-child{border-right:none}
+.cr-yes{color:var(--fg);font-weight:600}
+.cr-no{color:var(--fg-faint)}
+
+/* SERVICES */
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);margin-top:56px;
+}
+.svc{background:var(--bg);padding:48px 40px;display:flex;flex-direction:column}
+.svc-tag{
+  display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 10px;background:var(--tag-bg);color:var(--fg-faint);
+  margin-bottom:28px;align-self:flex-start;
+}
+.svc-title{font-size:21px;font-weight:800;letter-spacing:-.025em;color:var(--fg);margin-bottom:8px}
+.svc-pitch{font-size:13px;font-weight:300;color:var(--fg-muted);line-height:1.65;margin-bottom:20px}
+.svc-price{font-size:30px;font-weight:800;letter-spacing:-.03em;color:var(--fg);line-height:1;margin-bottom:4px}
+.svc-cadence{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:32px}
+.svc-div{height:1px;background:var(--border);margin-bottom:22px}
+.svc-sec{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:12px}
+.svc-list{margin-bottom:22px}
+.svc-list li{font-size:13px;color:var(--fg-muted);padding:7px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;line-height:1.4;font-weight:300}
+.svc-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--fg-faint);flex-shrink:0;margin-top:8px}
+.svc-footer{margin-top:auto;padding-top:24px;border-top:1px solid var(--border)}
+.svc-cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--fg);background:none;border:none;letter-spacing:.02em;transition:gap .2s;padding:0}
+.svc-cta:hover{gap:14px}
+.svc.inv{background:var(--fg)}
+[data-theme="dark"] .svc.inv{background:var(--bg-card)}
+.svc.inv .svc-tag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
+[data-theme="dark"] .svc.inv .svc-tag{background:var(--tag-bg);color:var(--fg-faint)}
+.svc.inv .svc-title,.svc.inv .svc-price{color:var(--bg)}
+[data-theme="dark"] .svc.inv .svc-title,[data-theme="dark"] .svc.inv .svc-price{color:var(--fg)}
+.svc.inv .svc-pitch,.svc.inv .svc-list li,.svc.inv .svc-cadence{color:rgba(255,255,255,.48)}
+[data-theme="dark"] .svc.inv .svc-pitch,[data-theme="dark"] .svc.inv .svc-list li,[data-theme="dark"] .svc.inv .svc-cadence{color:var(--fg-muted)}
+.svc.inv .svc-sec{color:rgba(255,255,255,.25)}
+[data-theme="dark"] .svc.inv .svc-sec{color:var(--fg-faint)}
+.svc.inv .svc-div,.svc.inv .svc-footer,.svc.inv .svc-list li{border-color:rgba(255,255,255,.1)}
+[data-theme="dark"] .svc.inv .svc-div,[data-theme="dark"] .svc.inv .svc-footer,[data-theme="dark"] .svc.inv .svc-list li{border-color:var(--border)}
+.svc.inv .svc-list li::before{background:rgba(255,255,255,.25)}
+[data-theme="dark"] .svc.inv .svc-list li::before{background:var(--fg-faint)}
+.svc.inv .svc-cta{color:var(--bg)}
+[data-theme="dark"] .svc.inv .svc-cta{color:var(--fg)}
+
+/* ────────────────────────────────────────────
+   PROCESS — vertical stepper
+   ──────────────────────────────────────────── */
+.process{background:var(--bg-alt)}
+.stepper{margin-top:72px;display:grid;grid-template-columns:200px 1fr;gap:0;border:1px solid var(--border)}
+.stepper-nav{border-right:1px solid var(--border);display:flex;flex-direction:column}
+.step-tab{
+  padding:20px 24px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .2s;
+  display:flex;align-items:flex-start;gap:12px;
+  position:relative;
+}
+.step-tab:last-child{border-bottom:none}
+.step-tab::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--fg);transform:scaleY(0);transform-origin:top;
+  transition:transform .3s ease;
+}
+.step-tab.active{background:var(--bg)}
+.step-tab.active::before{transform:scaleY(1)}
+.step-tab:hover:not(.active){background:var(--bg-card)}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-faint);letter-spacing:.08em;line-height:1.8;flex-shrink:0}
+.step-name{font-size:13px;font-weight:600;color:var(--fg-muted);line-height:1.3}
+.step-tab.active .step-name{color:var(--fg)}
+.stepper-content{padding:40px 48px;background:var(--bg)}
+.step-panel{display:none;animation:fadeIn .25s ease}
+.step-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sp-header{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
+.sp-phase{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-faint)}
+.sp-title{font-size:24px;font-weight:800;color:var(--fg);letter-spacing:-.025em}
+.sp-desc{font-size:15px;font-weight:300;color:var(--fg-muted);line-height:1.8;margin-bottom:28px;max-width:560px}
+.sp-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.sp-col-title{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:12px}
+.sp-list{display:flex;flex-direction:column;gap:0}
+.sp-list li{font-size:13px;color:var(--fg-muted);padding:8px 0;border-bottom:1px solid var(--border);font-weight:300;display:flex;align-items:flex-start;gap:10px;line-height:1.4}
+.sp-list li:last-child{border-bottom:none}
+.sp-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--fg-faint);flex-shrink:0;margin-top:8px}
+.sp-output{
+  margin-top:32px;padding:20px 24px;
+  background:var(--bg-alt);border:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:14px;
+}
+.sp-output-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
+.sp-output-val{font-size:13px;color:var(--fg-muted);font-weight:300;line-height:1.5}
+
+/* FAQ */
+.faq-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);border:1px solid var(--border);margin-top:56px;
+}
+.faq-item{background:var(--bg);padding:36px 40px}
+.faq-q{font-size:15px;font-weight:600;color:var(--fg);margin-bottom:12px;line-height:1.3;letter-spacing:-.01em}
+.faq-a{font-size:13px;color:var(--fg-muted);font-weight:300;line-height:1.75}
+.faq-a strong{font-weight:600;color:var(--fg)}
+
+/* CTA */
+.cta-wrap{background:var(--inv-bg);padding:140px 52px;text-align:center;position:relative;overflow:hidden}
+[data-theme="dark"] .cta-wrap{background:var(--bg-alt)}
+.cta-wm{
+  position:absolute;bottom:-50px;left:50%;transform:translateX(-50%);
+  font-size:clamp(100px,18vw,240px);font-weight:900;letter-spacing:-.05em;
+  color:rgba(255,255,255,.03);pointer-events:none;user-select:none;white-space:nowrap;
+}
+.cta-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--inv-faint);margin-bottom:24px}
+[data-theme="dark"] .cta-label{color:var(--fg-faint)}
+.cta-h{
+  font-size:clamp(38px,6vw,76px);font-weight:900;letter-spacing:-.04em;
+  line-height:.97;color:var(--inv-fg);margin-bottom:20px;
+  max-width:680px;margin-left:auto;margin-right:auto;
+}
+[data-theme="dark"] .cta-h{color:var(--fg)}
+.cta-sub{font-size:15px;font-weight:300;color:var(--inv-muted);max-width:420px;margin:0 auto 44px;line-height:1.75}
+[data-theme="dark"] .cta-sub{color:var(--fg-muted)}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--inv-fg);color:var(--inv-bg);
+  padding:15px 32px;font-size:12px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid transparent;transition:background .2s,color .2s,border-color .2s;
+}
+[data-theme="dark"] .btn-cta{background:var(--fg);color:var(--bg)}
+.btn-cta:hover{background:transparent;color:var(--inv-fg);border-color:rgba(255,255,255,.2)}
+[data-theme="dark"] .btn-cta:hover{color:var(--fg);border-color:var(--border)}
+.cta-note{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--inv-faint)}
+[data-theme="dark"] .cta-note{color:var(--fg-faint)}
+
+/* FOOTER */
+footer{padding:36px 52px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:15px;font-weight:800;color:var(--fg);letter-spacing:-.02em}
+.footer-logo span{font-weight:300;color:var(--fg-muted)}
+.footer-links{display:flex;gap:28px}
+.footer-link{font-size:13px;color:var(--fg-faint);transition:color .2s}
+.footer-link:hover{color:var(--fg)}
+.footer-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-faint)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  nav{padding:0 24px}
+  .nav-links .nav-link{display:none}
+  .hero,.section,.manifesto,.outcomes,.cta-wrap,.compare,.process,.faq,.evidence,.issues,.verticals{padding:80px 24px}
+  .hero{min-height:auto;padding-top:96px}
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero-proof{grid-template-columns:repeat(3,1fr)}
+  .two-col,.m-grid,.oc-intro{grid-template-columns:1fr;gap:36px}
+  .oc-grid,.ev-cards{grid-template-columns:repeat(2,1fr)}
+  .vert-grid{grid-template-columns:repeat(2,1fr)}
+  .vert-card:nth-child(3),.vert-card:nth-child(4),.vert-card:nth-child(5),.vert-card:nth-child(6),.vert-card:nth-child(7),.vert-card:nth-child(8){border-top:1px solid var(--border)}
+  .issues-table{overflow-x:auto}
+  .issues-head,.issues-row{grid-template-columns:36px 180px 1fr 90px;min-width:560px}
+  .svc-grid{grid-template-columns:1fr}
+  .stepper{grid-template-columns:1fr;border:none;gap:1px;background:var(--border)}
+  .stepper-nav{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(--border)}
+  .step-tab{border-bottom:none;border-right:1px solid var(--border);flex-direction:column;gap:4px;min-width:110px}
+  .step-tab::before{top:auto;bottom:0;left:0;right:0;width:auto;height:2px;transform:scaleX(0)}
+  .step-tab.active::before{transform:scaleX(1)}
+  .step-tab:last-child{border-right:none}
+  .stepper-content{padding:28px}
+  .sp-cols{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;align-items:flex-start;padding:28px 24px}
+}
+@media(max-width:560px){
+  .vert-grid{grid-template-columns:1fr}
+  .vert-card:nth-child(n){border-top:1px solid var(--border)}
+  .vert-card:first-child{border-top:none}
+  .oc-grid,.ev-cards{grid-template-columns:1fr}
+  .hero-proof{grid-template-columns:1fr}
+  .hp{border-right:none;border-bottom:1px solid var(--border)}
+  .hp:last-child{border-bottom:none}
+  .hero-wm{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">SPK <span>Studio</span></span>
+  <div class="nav-links">
+    <a href="#why" class="nav-link">Why UX</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#process" class="nav-link">Process</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#contact" class="nav-cta">Free Audit</a>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-wm">Workflow</div>
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow reveal">Industrial UX Consultancy</p>
+        <h1 class="hero-h1 reveal">Your software<br>has a workflow<br><span>problem.</span></h1>
+        <p class="hero-sub reveal">Industrial software teams ship features users can't find, workflows nobody completes, and interfaces that need weeks of training to operate. We fix the experience — systematically — so your product earns its own renewals.</p>
+        <div class="hero-actions reveal">
+          <a href="#contact" class="btn-primary">Get a Free UX Audit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">See how it works <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        </div>
+        <div class="hero-proof reveal">
+          <div class="hp"><div class="hp-num">$100</div><div class="hp-label">Return per $1<br>invested in UX</div><div class="hp-src">Forrester Research</div></div>
+          <div class="hp"><div class="hp-num">80%</div><div class="hp-label">Features never<br>meaningfully adopted</div><div class="hp-src">Pendo 2024 Benchmarks</div></div>
+          <div class="hp"><div class="hp-num">10×</div><div class="hp-label">Cost to fix UX<br>post-release vs. design</div><div class="hp-src">IBM / Human Factors Intl.</div></div>
+        </div>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hc-badge">Product UX Audit</div>
+        <h2 class="hc-h">Start with a <em>free</em> audit — pay only when it's validated.</h2>
+        <p class="hc-sub">We review your product's core workflows and surface the top usability gaps. No fee until your development or business team confirms the findings are worth acting on.</p>
+        <div class="hc-rule"></div>
+        <div class="hc-item"><div class="hc-dot"></div><div class="hc-text">Heuristic evaluation of core task flows (up to 3 flows)</div></div>
+        <div class="hc-item"><div class="hc-dot"></div><div class="hc-text">Information architecture and navigation review</div></div>
+        <div class="hc-item"><div class="hc-dot"></div><div class="hc-text">UX debt inventory with severity classification</div></div>
+        <div class="hc-item"><div class="hc-dot"></div><div class="hc-text">Prioritized quick wins — actionable in the current sprint</div></div>
+        <div class="hc-item"><div class="hc-dot"></div><div class="hc-text">Written findings report — yours to keep, regardless</div></div>
+        <div class="hc-price-box">
+          <div class="hc-free">Free to start</div>
+          <div class="hc-free-cond">Pay $600–$1,800 only after your dev or business team validates the findings. If the audit doesn't surface actionable issues, you owe nothing.</div>
+        </div>
+        <button class="hc-cta">Book the Free Audit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <p class="hc-note">No contract. Findings delivered in 5–7 business days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-inner">
+    <span class="mi">CMMS Platforms</span><span class="mi">Asset Management</span><span class="mi">Manufacturing SaaS</span><span class="mi">Field Service</span><span class="mi">ERP Systems</span><span class="mi">Industrial IoT</span><span class="mi">Logistics Platforms</span><span class="mi">OEM Portals</span><span class="mi">CMMS Platforms</span><span class="mi">Asset Management</span><span class="mi">Manufacturing SaaS</span><span class="mi">Field Service</span><span class="mi">ERP Systems</span><span class="mi">Industrial IoT</span><span class="mi">Logistics Platforms</span><span class="mi">OEM Portals</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="why">
+  <div class="container">
+    <p class="m-label reveal">The UX Problem in Industrial Software</p>
+    <div class="m-grid">
+      <h2 class="m-h reveal">More features won't fix a product users can't navigate.</h2>
+      <div class="m-body">
+        <p class="m-p reveal"><strong>Industrial SaaS is built by engineers solving domain problems — not interaction problems.</strong> The result is products with extraordinary capability and terrible learnability. Every department gets a module. Every edge case gets a modal. Every request gets shipped. And with every release, the cognitive load on your users compounds.</p>
+        <p class="m-p reveal">Pendo's 2024 benchmarks found that <strong>80% of built features never achieve meaningful adoption</strong>. That's not a development problem. It's a discoverability and learnability problem. Features your team spent months building are invisible to the users who need them most.</p>
+        <p class="m-pull reveal">"UX debt in industrial software isn't a cosmetic issue. It's a compounding liability that shows up in your renewal rates."</p>
+        <p class="m-p reveal">The pattern repeats across CMMS, ERP, Field Service, and Asset Management platforms. Usability issues accumulate quietly — surfacing first in support ticket volume, then in prolonged onboarding timelines, then in competitive displacement at renewal. <strong>The fix isn't a full redesign. It's a structured, evidence-based approach to the workflows that matter most.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USABILITY ISSUES — TABLE FORMAT -->
+<section class="section issues" id="problems">
+  <div class="container">
+    <p class="sec-label reveal">Usability Issues We Address</p>
+    <div class="two-col" style="margin-bottom:0">
+      <h2 class="sec-h reveal">Eight patterns found in almost every industrial SaaS audit.</h2>
+      <p class="sec-sub reveal">These aren't edge cases. They're the recurring failure modes we document across CMMS, ERP, Field Service, and Asset Management products — each measurable, each fixable.</p>
+    </div>
+    <div class="issues-table reveal">
+      <div class="issues-head">
+        <div class="ih">#</div>
+        <div class="ih">Issue</div>
+        <div class="ih">Consequence</div>
+        <div class="ih">Severity</div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">01</div>
+        <div class="ir"><span class="ir-label">Excessive task-completion steps</span></div>
+        <div class="ir">Users abandon mid-flow. Productivity drops. Power users build workarounds that become institutional knowledge no one documents.</div>
+        <div class="ir"><span class="sev-badge sev-crit">Critical</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">02</div>
+        <div class="ir"><span class="ir-label">Poor learnability and recallability</span></div>
+        <div class="ir">Infrequent tasks are forgotten between sessions. Users can't build a stable mental model — especially in systems used weekly, not daily.</div>
+        <div class="ir"><span class="sev-badge sev-crit">Critical</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">03</div>
+        <div class="ir"><span class="ir-label">High time-to-competency</span></div>
+        <div class="ir">Onboarding requires formal training to reach basic proficiency. Every hour of avoidable instruction is direct cost — typically $50–$150/user in facilitated time.</div>
+        <div class="ir"><span class="sev-badge sev-high">High</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">04</div>
+        <div class="ir"><span class="ir-label">Low feature discoverability</span></div>
+        <div class="ir">Users rely on the same 20% of features because the rest are buried in navigation structures that don't reflect how they think about their work.</div>
+        <div class="ir"><span class="sev-badge sev-high">High</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">05</div>
+        <div class="ir"><span class="ir-label">Accumulated UX debt</span></div>
+        <div class="ir">Each team built their module independently. The result is a product with inconsistent interaction patterns, contradictory conventions, and no coherent design language.</div>
+        <div class="ir"><span class="sev-badge sev-high">High</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">06</div>
+        <div class="ir"><span class="ir-label">Tier-1 support ticket inflation</span></div>
+        <div class="ir">Support teams answer questions the interface should answer itself. If users are calling about how to do something, it's a navigation or feedback problem — not a training gap.</div>
+        <div class="ir"><span class="sev-badge sev-high">High</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">07</div>
+        <div class="ir"><span class="ir-label">Inconsistent interaction patterns</span></div>
+        <div class="ir">Buttons with different labels for the same action. Modals that behave differently across modules. Users can't build a reliable mental model of system behavior.</div>
+        <div class="ir"><span class="sev-badge sev-med">Medium</span></div>
+      </div>
+      <div class="issues-row">
+        <div class="ir-num">08</div>
+        <div class="ir"><span class="ir-label">Extended design-to-development cycles</span></div>
+        <div class="ir">Without a defined design system or validated interaction patterns, developers make UX decisions they're not equipped to make — increasing rework and slowing delivery velocity.</div>
+        <div class="ir"><span class="sev-badge sev-med">Medium</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS — CARD GRID WITH ICONS -->
+<section class="section verticals" id="who">
+  <div class="container">
+    <p class="sec-label reveal">Verticals We Specialize In</p>
+    <div class="two-col" style="margin-bottom:0">
+      <h2 class="sec-h reveal">Specialized in complex operational software. Nothing else.</h2>
+      <p class="sec-sub reveal">Industrial UX is a distinct discipline. We don't need domain orientation or a three-week onboarding sprint to understand your users. We've worked in these verticals long enough to know the difference between a PM schedule and a purchase requisition.</p>
+    </div>
+    <div class="vert-grid reveal">
+      <div class="vert-card"><div class="vc-num">01</div><div class="vc-icon">🔧</div><div class="vc-title">CMMS Platforms</div><div class="vc-desc">Work order management, preventive maintenance scheduling, asset hierarchies, technician dispatch. We understand these workflows without needing a domain orientation.</div></div>
+      <div class="vert-card"><div class="vc-num">02</div><div class="vc-icon">📊</div><div class="vc-title">Asset Management Software</div><div class="vc-desc">Lifecycle tracking, condition monitoring, compliance documentation, and inspection workflows. High-stakes decisions need interfaces that surface the right information at the right time.</div></div>
+      <div class="vert-card"><div class="vc-num">03</div><div class="vc-icon">🏭</div><div class="vc-title">Manufacturing SaaS</div><div class="vc-desc">Shop floor operators, production supervisors, and QA engineers have different mental models and constraints. We design for the full role spectrum — not just the power user.</div></div>
+      <div class="vert-card"><div class="vc-num">04</div><div class="vc-icon">📱</div><div class="vc-title">Field Service Software</div><div class="vc-desc">Mobile-first, often offline, always time-constrained. Field technician UX is a distinct discipline — low-light readability, gloved-hand interaction, minimal cognitive load under pressure.</div></div>
+      <div class="vert-card"><div class="vc-num">05</div><div class="vc-icon">🗂️</div><div class="vc-title">ERP Systems</div><div class="vc-desc">Legacy data architectures don't require legacy interfaces. We modernize interaction patterns incrementally — without disrupting established workflows or requiring a full re-implementation.</div></div>
+      <div class="vert-card"><div class="vc-num">06</div><div class="vc-icon">🚚</div><div class="vc-title">Logistics Platforms</div><div class="vc-desc">High-velocity, time-critical operations where one extra click has a measurable throughput cost. Dispatch, routing, and exception handling — designed for speed and recoverability.</div></div>
+      <div class="vert-card"><div class="vc-num">07</div><div class="vc-icon">📡</div><div class="vc-title">Industrial IoT Platforms</div><div class="vc-desc">Dashboards that support decision-making, not just data display. Alert hierarchies that communicate urgency. Visualization that maps to how operators think about plant state.</div></div>
+      <div class="vert-card"><div class="vc-num">08</div><div class="vc-icon">🔗</div><div class="vc-title">OEM Customer Portals</div><div class="vc-desc">Your portal is a product with its own adoption challenges. Spare parts catalogs, warranty management, and service request flows should be self-serve — and often aren't.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE -->
+<section class="section evidence">
+  <div class="container">
+    <p class="sec-label reveal">The Business Case</p>
+    <div class="two-col" style="margin-bottom:64px">
+      <h2 class="sec-h reveal">Poor usability isn't a design concern. It's a P&amp;L concern.</h2>
+      <p class="sec-sub reveal">These figures come from published research — not projections. They reflect what organizations consistently measure after investing in structured UX improvement programs.</p>
+    </div>
+    <div class="ev-cards reveal">
+      <div class="ev-card"><div class="ev-stat">$100</div><div class="ev-card-h">Return per $1 invested in UX</div><div class="ev-card-b">Forrester's landmark study found that every dollar invested in experience design returns approximately $100 in measurable business value — spanning conversion, retention, and support cost reduction. The ROI holds across B2B software contexts.</div><span class="ev-source">Forrester Research</span></div>
+      <div class="ev-card" style="background:var(--bg-card)"><div class="ev-stat">80%</div><div class="ev-card-h">Of built features never achieve meaningful adoption</div><div class="ev-card-b">Pendo's 2024 Product Benchmarks, drawn from real product usage data, found that the average enterprise product sees only 6% feature adoption. Roughly 80% of shipped features generate negligible usage — regardless of how much engineering effort went into them.</div><span class="ev-source">Pendo 2024 Benchmarks</span></div>
+      <div class="ev-card"><div class="ev-stat">10×</div><div class="ev-card-h">Cost multiplier for fixing UX issues post-release</div><div class="ev-card-b">Human Factors International and IBM research consistently show that identifying and correcting usability issues during the design phase costs a fraction of fixing the same issues after release. The multiplier ranges from 6× at implementation to over 10× in production.</div><span class="ev-source">IBM / Human Factors International</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="outcomes" id="outcomes">
+  <div class="container">
+    <p class="m-label reveal">Measurable Outcomes</p>
+    <div class="oc-intro">
+      <h2 class="oc-h reveal">We scope every engagement around a business result, not a deliverable.</h2>
+      <p class="oc-sub reveal">Design artifacts are the method. Reduced support costs, higher renewal rates, and faster time-to-value for your customers are the product. Here's what that looks like across five measurable dimensions.</p>
+    </div>
+    <div class="oc-grid reveal">
+      <div class="oc"><div class="oc-icon">⚡</div><div class="oc-title">Reduce Time-to-Competency</div><div class="oc-body">Users reach full task proficiency faster when the interface is self-evident. Onboarding programs shrink. Implementation timelines compress.</div></div>
+      <div class="oc"><div class="oc-icon">📉</div><div class="oc-title">Reduce Tier-1 Support Volume</div><div class="oc-body">Usability audits of enterprise portals routinely show 25–30% reductions in how-to tickets after targeted workflow improvements.</div></div>
+      <div class="oc"><div class="oc-icon">📈</div><div class="oc-title">Improve Feature Adoption</div><div class="oc-body">With better information architecture and progressive disclosure, users discover and regularly use more of the product. Higher adoption correlates directly with renewal rates.</div></div>
+      <div class="oc"><div class="oc-icon">🚀</div><div class="oc-title">Accelerate Delivery Velocity</div><div class="oc-body">Validated design systems and documented interaction patterns reduce design-to-development iteration cycles. Developers stop making UX decisions they're not equipped to make.</div></div>
+      <div class="oc"><div class="oc-icon">🔧</div><div class="oc-title">Retire UX Debt Systematically</div><div class="oc-body">A component library and pattern documentation create the foundation for consistent future development. New features ship with less rework and more coherence across the product.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="section compare">
+  <div class="container">
+    <p class="sec-label reveal">SPK Studio vs. Alternatives</p>
+    <div class="two-col">
+      <h2 class="sec-h reveal">Why not a generalist agency — or a full-time hire?</h2>
+      <p class="sec-sub reveal">Most UX agencies don't know the difference between a PM schedule and a purchase requisition. A full-time senior designer costs $120K–$180K annually and takes 90 days to ramp. Here's an honest comparison.</p>
+    </div>
+    <div class="cmp-table reveal">
+      <div class="cmp-head"><div class="ch">Dimension</div><div class="ch">SPK Studio</div><div class="ch">Agency / Full-Time Designer</div></div>
+      <div class="cmp-row"><div class="cr">Industrial domain knowledge</div><div class="cr"><span class="cr-yes">Deep — no ramp-up needed</span></div><div class="cr"><span class="cr-no">Rarely — requires domain orientation</span></div></div>
+      <div class="cmp-row"><div class="cr">Time to first actionable deliverable</div><div class="cr"><span class="cr-yes">5–10 business days</span></div><div class="cr"><span class="cr-no">6–12 weeks</span></div></div>
+      <div class="cmp-row"><div class="cr">Audit, redesign, and dev handoff</div><div class="cr"><span class="cr-yes">All in one engagement</span></div><div class="cr"><span class="cr-no">Typically separate scopes or vendors</span></div></div>
+      <div class="cmp-row"><div class="cr">Entry cost / commitment required</div><div class="cr"><span class="cr-yes">Free audit — pay on validation</span></div><div class="cr"><span class="cr-no">Retainer deposit or salary commitment</span></div></div>
+      <div class="cmp-row"><div class="cr">Ongoing monthly cost</div><div class="cr"><span class="cr-yes">$1,200–$3,600/mo (retainer)</span></div><div class="cr"><span class="cr-no">$10K–$15K/mo (FTE fully loaded)</span></div></div>
+      <div class="cmp-row"><div class="cr">Outcome-based engagement scoping</div><div class="cr"><span class="cr-yes">Always — defined before we start</span></div><div class="cr"><span class="cr-no">Rare — most engagements are hours-based</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services" style="background:var(--bg-alt)">
+  <div class="container">
+    <p class="sec-label reveal">Engagement Models</p>
+    <div class="two-col" style="margin-bottom:0">
+      <h2 class="sec-h reveal">Three ways to engage. Every scope is fixed before we start.</h2>
+      <p class="sec-sub reveal">No open-ended proposals. No scope creep. Every engagement is scoped, priced, and time-bounded up front — so your stakeholders can approve it and your team knows what to expect.</p>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc">
+        <span class="svc-tag">Engagement 01 · One-Time</span>
+        <div class="svc-title">Product UX Audit</div>
+        <p class="svc-pitch">A systematic, heuristic-based review of your product's core user flows, information architecture, and interaction consistency. You leave with a prioritized improvement roadmap and a clear view of where the experience is costing you.</p>
+        <div class="svc-price">$600–$1,800</div>
+        <div class="svc-cadence">Fixed Price · 5–10 Business Days</div>
+        <div class="svc-div"></div>
+        <div class="svc-sec">Scope includes</div>
+        <ul class="svc-list">
+          <li>Heuristic evaluation of core task flows (up to 5)</li>
+          <li>Information architecture and navigation review</li>
+          <li>User journey analysis across key personas</li>
+          <li>UX debt inventory with severity classification</li>
+          <li>Interaction consistency and pattern audit</li>
+          <li>Competitive usability benchmarking</li>
+        </ul>
+        <div class="svc-sec">Deliverables</div>
+        <ul class="svc-list">
+          <li>Structured audit report (30–50 pages)</li>
+          <li>Severity-weighted priority matrix</li>
+          <li>Quick wins — implementable in current sprint</li>
+          <li>90-day UX improvement roadmap</li>
+        </ul>
+        <div class="svc-footer"><button class="svc-cta">Start free — pay on validation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+      </div>
+      <div class="svc" style="background:var(--bg)">
+        <span class="svc-tag">Engagement 02 · Project-Based</span>
+        <div class="svc-title">UX Debt Remediation</div>
+        <p class="svc-pitch">Act on the audit findings. We redesign the highest-friction workflows, standardize components across the product, and establish the design system foundation your team needs to maintain consistency going forward.</p>
+        <div class="svc-price">$1,800–$6,000</div>
+        <div class="svc-cadence">Fixed Scope · 4–10 Weeks</div>
+        <div class="svc-div"></div>
+        <div class="svc-sec">Scope includes</div>
+        <ul class="svc-list">
+          <li>Workflow redesign for priority task flows</li>
+          <li>UI component standardization</li>
+          <li>Design system foundation (token set, component library)</li>
+          <li>Information architecture restructuring</li>
+          <li>Usability testing on redesigned flows</li>
+          <li>Developer-ready handoff with interaction specifications</li>
+        </ul>
+        <div class="svc-sec">Best suited for</div>
+        <ul class="svc-list">
+          <li>Products post-audit with a validated priority list</li>
+          <li>Teams preparing for a major release or replatform</li>
+          <li>Products losing competitive evaluations on UX criteria</li>
+        </ul>
+        <div class="svc-footer"><button class="svc-cta">Scope a remediation project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+      </div>
+      <div class="svc inv">
+        <span class="svc-tag">Engagement 03 · Retainer</span>
+        <div class="svc-title">Fractional Product Designer</div>
+        <p class="svc-pitch">An embedded senior product designer on your team — without the $150K+ salary, 90-day ramp, or headcount approval cycle. Weekly design reviews, feature discovery, and production-ready UI every sprint.</p>
+        <div class="svc-price">$1,200–$3,600/mo</div>
+        <div class="svc-cadence">Monthly Retainer · 30-Day Cancellation</div>
+        <div class="svc-div"></div>
+        <div class="svc-sec">Included each month</div>
+        <ul class="svc-list">
+          <li>Weekly product design review sessions</li>
+          <li>Feature scoping and UX requirement definition</li>
+          <li>User flows and task flow documentation</li>
+          <li>Wireframes and high-fidelity UI screens</li>
+          <li>Interactive prototype reviews with stakeholders</li>
+          <li>Developer handoff with full interaction specs</li>
+          <li>Async Slack support (24-hour response SLA)</li>
+          <li>Monthly product UX health summary</li>
+        </ul>
+        <div class="svc-footer"><button class="svc-cta">Enquire about retainer availability <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS — INTERACTIVE STEPPER -->
+<section class="section process" id="process">
+  <div class="container">
+    <p class="sec-label reveal">Engagement Methodology</p>
+    <div class="two-col">
+      <h2 class="sec-h reveal">A five-phase methodology built for evidence-based design decisions.</h2>
+      <p class="sec-sub reveal">Every engagement follows a structured, repeatable process. Findings are grounded in observed user behavior, product analytics, and stakeholder input — not aesthetic preference or gut instinct.</p>
+    </div>
+    <div class="stepper reveal" id="stepper">
+      <div class="stepper-nav">
+        <div class="step-tab active" data-panel="p1"><div class="step-num">01</div><div class="step-name">Discovery</div></div>
+        <div class="step-tab" data-panel="p2"><div class="step-num">02</div><div class="step-name">Assessment</div></div>
+        <div class="step-tab" data-panel="p3"><div class="step-num">03</div><div class="step-name">Prioritization</div></div>
+        <div class="step-tab" data-panel="p4"><div class="step-num">04</div><div class="step-name">Design</div></div>
+        <div class="step-tab" data-panel="p5"><div class="step-num">05</div><div class="step-name">Validation</div></div>
+      </div>
+      <div class="stepper-content">
+        <div class="step-panel active" id="p1">
+          <div class="sp-header"><span class="sp-phase">Phase 01</span><span class="sp-title">Discovery</span></div>
+          <p class="sp-desc">We learn the product, the user roles, and the business constraints before forming any design opinions. No assumptions — everything is grounded in what we observe and hear.</p>
+          <div class="sp-cols">
+            <div><div class="sp-col-title">Activities</div><ul class="sp-list"><li>Product walkthrough and demo session</li><li>User persona and role review</li><li>Business objectives alignment</li><li>Stakeholder interviews</li><li>Support ticket and analytics review</li></ul></div>
+            <div><div class="sp-col-title">What we're establishing</div><ul class="sp-list"><li>Who uses this product and in what context</li><li>What workflows are mission-critical</li><li>What the business needs to improve</li><li>Where existing pain signals are documented</li></ul></div>
+          </div>
+          <div class="sp-output"><div><div class="sp-output-label">Output</div><div class="sp-output-val">Discovery brief summarizing product context, user roles, critical workflows, and agreed success criteria for the engagement.</div></div></div>
+        </div>
+        <div class="step-panel" id="p2">
+          <div class="sp-header"><span class="sp-phase">Phase 02</span><span class="sp-title">Assessment</span></div>
+          <p class="sp-desc">Systematic identification of usability gaps using established heuristics, task-flow analysis, and cognitive walkthrough. Every issue is documented, not just noted.</p>
+          <div class="sp-cols">
+            <div><div class="sp-col-title">Methods used</div><ul class="sp-list"><li>Heuristic evaluation (Nielsen's 10 principles)</li><li>Task flow completion analysis</li><li>Cognitive walkthrough</li><li>UX debt inventory</li><li>Competitive usability benchmarking</li></ul></div>
+            <div><div class="sp-col-title">What we're documenting</div><ul class="sp-list"><li>Friction points in critical task flows</li><li>Information architecture gaps</li><li>Inconsistent interaction patterns</li><li>Missing affordances and feedback states</li></ul></div>
+          </div>
+          <div class="sp-output"><div><div class="sp-output-label">Output</div><div class="sp-output-val">Full UX debt inventory with severity classification (Critical / High / Medium) and annotated screenshots for each identified issue.</div></div></div>
+        </div>
+        <div class="step-panel" id="p3">
+          <div class="sp-header"><span class="sp-phase">Phase 03</span><span class="sp-title">Prioritization</span></div>
+          <p class="sp-desc">Not every issue gets solved. We rank findings by business impact, user frustration severity, and implementation effort — then align with your team before any design work begins.</p>
+          <div class="sp-cols">
+            <div><div class="sp-col-title">How we rank</div><ul class="sp-list"><li>Severity × user impact matrix</li><li>Implementation effort estimation</li><li>Business value mapping</li><li>Stakeholder alignment session</li></ul></div>
+            <div><div class="sp-col-title">Output tiers</div><ul class="sp-list"><li>Quick wins — current sprint, low effort</li><li>High-impact improvements — 30–60 day horizon</li><li>Strategic initiatives — 90-day roadmap</li></ul></div>
+          </div>
+          <div class="sp-output"><div><div class="sp-output-label">Output</div><div class="sp-output-val">Priority matrix and 90-day roadmap, reviewed and approved by your product and engineering leads before execution begins.</div></div></div>
+        </div>
+        <div class="step-panel" id="p4">
+          <div class="sp-header"><span class="sp-phase">Phase 04</span><span class="sp-title">Design</span></div>
+          <p class="sp-desc">Production-ready design artifacts built for how developers actually build — not for how designs look in a portfolio. Every screen is annotated. Every interaction is specified.</p>
+          <div class="sp-cols">
+            <div><div class="sp-col-title">Deliverables</div><ul class="sp-list"><li>Task flows and user journey maps</li><li>Annotated wireframes</li><li>High-fidelity UI screens in Figma</li><li>Interactive prototypes</li><li>Design system documentation</li></ul></div>
+            <div><div class="sp-col-title">Design principles</div><ul class="sp-list"><li>Designed for implementation constraints</li><li>Interaction specifications included by default</li><li>Component reuse documented for dev handoff</li><li>Responsive and accessibility considerations noted</li></ul></div>
+          </div>
+          <div class="sp-output"><div><div class="sp-output-label">Output</div><div class="sp-output-val">Figma design file with organized frames, interaction annotations, component documentation, and a developer handoff checklist.</div></div></div>
+        </div>
+        <div class="step-panel" id="p5">
+          <div class="sp-header"><span class="sp-phase">Phase 05</span><span class="sp-title">Validation</span></div>
+          <p class="sp-desc">Designs are reviewed and validated with the product team, engineering, and key stakeholders before anything goes to a sprint. No surprises in development.</p>
+          <div class="sp-cols">
+            <div><div class="sp-col-title">Review checkpoints</div><ul class="sp-list"><li>Product team design review</li><li>Developer feasibility review</li><li>Usability testing where applicable</li><li>Stakeholder sign-off session</li></ul></div>
+            <div><div class="sp-col-title">What gets resolved</div><ul class="sp-list"><li>Edge cases and error states</li><li>Technical implementation constraints</li><li>Stakeholder alignment on interaction decisions</li><li>Open questions before sprint start</li></ul></div>
+          </div>
+          <div class="sp-output"><div><div class="sp-output-label">Output</div><div class="sp-output-val">Signed-off design file, developer handoff package, and a changelog documenting all validation decisions and reasoning.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq" id="faq" style="background:var(--bg-alt)">
+  <div class="container">
+    <p class="sec-label reveal">Frequently Asked</p>
+    <h2 class="sec-h reveal" style="max-width:520px;margin-bottom:0">Questions every product team asks before signing.</h2>
+    <div class="faq-grid reveal">
+      <div class="faq-item"><div class="faq-q">What exactly does "free until validated" mean?</div><div class="faq-a">We conduct the audit and deliver the findings report at no charge. If your development team or business stakeholders review the report and determine the findings are actionable and worth addressing, you pay the agreed fixed fee ($600–$1,800). <strong>If the audit doesn't surface issues your team considers worth acting on, you owe nothing.</strong> It removes the risk from the first conversation.</div></div>
+      <div class="faq-item"><div class="faq-q">Do you work with teams that have no design system yet?</div><div class="faq-a">That's the typical starting point. Most industrial SaaS products we work with have no component library, no documented interaction patterns, and a codebase full of one-off UI decisions. The UX Debt Remediation engagement specifically includes a design system foundation — token set, core component documentation, and a pattern library — as a deliverable.</div></div>
+      <div class="faq-item"><div class="faq-q">We've had poor results with design agencies before. What's different?</div><div class="faq-a">Most agencies deliver aesthetically polished work that's disconnected from how the product is built and how users actually operate. <strong>We specialize in industrial operational software</strong> — which means we understand work order workflows, PM scheduling logic, and why a field technician needs a 3-tap task completion path on a gloved-hand device. No domain orientation required.</div></div>
+      <div class="faq-item"><div class="faq-q">Can the audit scope expand into a retainer or remediation project?</div><div class="faq-a">Yes — and it's the most common path. Many clients use the audit report to build internal business justification for a UX investment. The priority matrix from the audit becomes the retainer backlog. You're not starting from scratch — you're executing against an evidence base we built together.</div></div>
+      <div class="faq-item"><div class="faq-q">How do you collaborate with our engineering team?</div><div class="faq-a">Every deliverable includes a structured developer handoff in Figma — annotated interaction specifications, component documentation, and responsive behavior notes. We also run a dedicated developer review session before handoff to resolve feasibility questions before they become rework. <strong>We design for implementation constraints, not in spite of them.</strong></div></div>
+      <div class="faq-item"><div class="faq-q">How quickly can we begin?</div><div class="faq-a">Book a 30-minute discovery call this week. If there's a clear fit, the audit begins within 5 business days and findings are delivered within 5–10 business days of kickoff. Retainer slots are limited — we work with a maximum of 4 concurrent clients to protect the quality and responsiveness of each engagement.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-wrap" id="contact">
+  <div class="cta-wm">Clarity</div>
+  <div class="container" style="position:relative;z-index:1">
+    <p class="cta-label reveal">No commitment required</p>
+    <h2 class="cta-h reveal">Start with a free Product UX Audit.</h2>
+    <p class="cta-sub reveal">30 minutes. We'll review your product together and identify your biggest workflow friction points — whether you engage us further or not. No pitch deck. No obligation.</p>
+    <a href="#" class="btn-cta reveal">Book the Free Audit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <p class="cta-note reveal">Pay $600–$1,800 only after your team validates the findings · Retainers from $1,200/mo · Max 4 concurrent clients</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">SPK <span>Studio</span></span>
+  <div class="footer-links">
+    <a href="#why" class="footer-link">Why UX</a>
+    <a href="#services" class="footer-link">Services</a>
+    <a href="#process" class="footer-link">Process</a>
+    <a href="#faq" class="footer-link">FAQ</a>
+  </div>
+  <span class="footer-copy">© 2026 SPK Studio · Industrial UX Consultancy</span>
+</footer>
+
+<script>
+// Theme toggle
+const btn = document.getElementById('themeBtn');
+const moon = document.getElementById('iconMoon');
+const sun = document.getElementById('iconSun');
+const html = document.documentElement;
+btn.addEventListener('click', () => {
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  moon.style.display = dark ? 'block' : 'none';
+  sun.style.display = dark ? 'none' : 'block';
+});
+
+// Stepper
+document.querySelectorAll('.step-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.step-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+  });
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+  });
+}, {threshold:0.07, rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
